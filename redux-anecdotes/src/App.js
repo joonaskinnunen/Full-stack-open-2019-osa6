@@ -5,8 +5,8 @@ import {
 
 const App = (props) => {
   const store = props.store
-  const anecdotes = store.getState()
-
+  const anecdotes = store.getState().sort((a, b) => { return b.votes - a.votes })
+  
   const vote = (id) => {
     store.dispatch(voteAction(id))
   }
