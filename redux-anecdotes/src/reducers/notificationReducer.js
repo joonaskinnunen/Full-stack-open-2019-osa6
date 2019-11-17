@@ -1,4 +1,11 @@
-const notificationReducer = (state = "message", action) => {
+export const newNotificationAction = (notification) => {
+    return {
+        type: 'NEWNOTIFICATION',
+        notification
+    }
+}
+
+const notificationReducer = (state = '', action) => {
     console.log('state now: ', state)
     console.log('ACTION: ', action)
     switch(action.type) {

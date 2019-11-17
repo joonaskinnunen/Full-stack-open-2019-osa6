@@ -6,8 +6,13 @@ const Notification = (props) => {
     padding: 10,
     borderWidth: 1
   }
+
+  const hiddenStyle = {
+    display: 'none'
+  }
+
   return (
-    <div style={style}>
+    <div style={props.store.getState().notification === '' ? hiddenStyle : style}>
       {props.store.getState().notification}
     </div>
   )
