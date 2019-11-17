@@ -37,7 +37,7 @@ export const newAnecdoteAction = (content) => {
   }
 }
 
-const reducer = (state = initialState, action) => {
+const anecdoteReducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
   switch (action.type) {
@@ -47,9 +47,9 @@ const reducer = (state = initialState, action) => {
       newState[indexOfObjectToVote] = { ...state[indexOfObjectToVote], votes: state[indexOfObjectToVote].votes + 1 }
       return newState
     case 'NEW':
-      return state.concat(action.data)
+      return [...state, action.data]
     default: return state
   }
 }
 
-export default reducer
+export default anecdoteReducer

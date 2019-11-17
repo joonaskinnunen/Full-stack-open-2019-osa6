@@ -3,7 +3,7 @@ import { voteAction } from '../reducers/anecdoteReducer'
 
 const AnecdoteList = (props) => {
     const store = props.store
-    const anecdotes = store.getState().sort((a, b) => { return b.votes - a.votes })
+    const anecdotes = store.getState().data.sort((a, b) => { return b.votes - a.votes })
     const vote = (id) => {
         store.dispatch(voteAction(id))
     }

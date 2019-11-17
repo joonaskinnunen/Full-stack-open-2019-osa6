@@ -7,6 +7,7 @@ const AnecdoteForm = (props) => {
     const addAnecdote = (event) => {
         event.preventDefault()
         const content = event.target.anecdote.value
+        event.target.anecdote.value = ''
         store.dispatch(newAnecdoteAction(content))
     }
     return (
