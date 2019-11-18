@@ -4,6 +4,7 @@ const Notification = (props) => {
   const style = {
     border: 'solid',
     padding: 10,
+    margin: 10,
     borderWidth: 1
   }
 

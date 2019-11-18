@@ -15,9 +15,11 @@ const AnecdoteForm = (props) => {
             store.dispatch(newNotificationAction(''))
         }, 5000)
     }
+    const style = {
+        margin: 10
+    }
     return (
-        <div>
-            <h2>create new</h2>
+        <div style={style}>
             <form onSubmit={addAnecdote}>
                 <div><input name='anecdote' /></div>
                 <button type='submit'>create</button>
