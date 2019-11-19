@@ -42,9 +42,9 @@ const anecdoteReducer = (state = initialState, action) => {
   console.log('action', action)
   switch (action.type) {
     case 'VOTE':
-      const indexOfObjectToVote = state.findIndex(x => x.id === action.data.id)
-      let newState = state
-      newState[indexOfObjectToVote] = { ...state[indexOfObjectToVote], votes: state[indexOfObjectToVote].votes + 1 }
+      let newState = [...state]
+      const indexOfObjectToVote = newState.findIndex(x => x.id === action.data.id)
+      newState[indexOfObjectToVote] = { ...newState[indexOfObjectToVote], votes: newState[indexOfObjectToVote].votes + 1 }
       return newState
     case 'NEW':
       return [...state, action.data]

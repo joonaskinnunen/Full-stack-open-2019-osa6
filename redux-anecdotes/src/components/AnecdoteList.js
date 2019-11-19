@@ -1,23 +1,40 @@
 import React from 'react'
 import { voteAction } from '../reducers/anecdoteReducer'
 import { newNotificationAction } from '../reducers/notificationReducer'
+import { connect } from 'react-redux'
 
 const AnecdoteList = (props) => {
-    const store = props.store
-    const anecdotes = store.getState().data.sort((a, b) => { return b.votes - a.votes })
-    const filter = store.getState().filter
+    const anecdotes = props.anecdotes.sort((a, b) => { return b.votes - a.votes })
+    const filter = props.filter
     const vote = (anecdote) => {
-        store.dispatch(voteAction(anecdote.id))
-        store.dispatch(newNotificationAction(`you voted '${anecdote.content}'`))
+        props.voteAction(anecdote.id)
+        props.newNotificationAction(`you voted '${anecdote.content}'`)
         setTimeout(() => {
-            store.dispatch(newNotificationAction(''))
+            props.newNotificationAction('')
         }, 5000)
     }
     return (
         <div>
-            {anecdotes.map((x, i) => x.content.toLowerCase().includes(filter.toLowerCase()) && (<div key={x.id}><div>{x.content}</div><div> has {x.votes}<button onClick={() => vote(x)}>vote</button></div></div>))}
+            {anecdotes.map(x => x.content.toLowerCase().includes(filter.toLowerCase()) && (<div key={x.id}><div>{x.content}</div><div> has {x.votes}<button onClick={() => vote(x)}>vote</button></div></div>))}
         </div>
     )
 }
 
-export default AnecdoteList
+const mapStateToProps = (state) => {
+    return {
+        anecdotes: state.data,
+        filter: state.filter
+    }
+}
+
+const mapDispatchToProps = {
+    newNotificationAction,
+    voteAction
+}
+
+const connectedAnecdoteList = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AnecdoteList)
+
+export default connectedAnecdoteList
