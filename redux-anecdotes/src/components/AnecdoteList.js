@@ -4,8 +4,6 @@ import { newNotificationAction } from '../reducers/notificationReducer'
 import { connect } from 'react-redux'
 
 const AnecdoteList = (props) => {
-    const anecdotes = props.anecdotes.sort((a, b) => { return b.votes - a.votes })
-    const filter = props.filter
     const vote = (anecdote) => {
         props.voteAction(anecdote.id)
         props.newNotificationAction(`you voted '${anecdote.content}'`)
@@ -15,15 +13,18 @@ const AnecdoteList = (props) => {
     }
     return (
         <div>
-            {anecdotes.map(x => x.content.toLowerCase().includes(filter.toLowerCase()) && (<div key={x.id}><div>{x.content}</div><div> has {x.votes}<button onClick={() => vote(x)}>vote</button></div></div>))}
+            {props.visibleAnecdotes.map(anecdote => <div key={anecdote.id}><div>{anecdote.content}</div><div> has {anecdote.votes}<button onClick={() => vote(anecdote)}>vote</button></div></div>)}
         </div>
     )
 }
 
+const anecdotesToShow = ({ data, filter }) => {
+    return data.sort((a, b) => b.votes - a.votes).filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
+}
+
 const mapStateToProps = (state) => {
     return {
-        anecdotes: state.data,
-        filter: state.filter
+        visibleAnecdotes: anecdotesToShow(state)
     }
 }
 
