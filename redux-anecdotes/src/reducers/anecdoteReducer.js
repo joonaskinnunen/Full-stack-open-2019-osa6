@@ -1,9 +1,15 @@
 import anecdoteService from '../services/anecdotes'
 
 export const voteAction = (id) => {
-  return {
-    type: 'VOTE',
-    data: { id }
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    const anecdoteToVote = anecdotes[anecdotes.findIndex(x => x.id === id)]
+    await anecdoteService.update({ ...anecdoteToVote, votes: anecdoteToVote.votes + 1 })
+    dispatch({
+      type: 'VOTE',
+      data: { id }
+    })
+
   }
 }
 
