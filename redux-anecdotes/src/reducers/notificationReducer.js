@@ -1,16 +1,22 @@
-export const newNotificationAction = (notification) => {
+export const newNotification = (message, time) => {
     return async dispatch => {
         dispatch({
             type: 'NEWNOTIFICATION',
-            notification
+            message
         })
+        setTimeout(() => {
+            dispatch({
+                type: 'NEWNOTIFICATION',
+                message: ''
+            })
+        }, time)
     }
 }
 
 const notificationReducer = (state = '', action) => {
     switch (action.type) {
         case 'NEWNOTIFICATION':
-            return action.notification
+            return action.message
         default: return state
     }
 }
