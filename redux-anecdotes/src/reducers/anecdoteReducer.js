@@ -7,17 +7,6 @@ export const voteAction = (id) => {
   }
 }
 
-export const newAnecdoteAction = (anecdote) => {
-  return {
-    type: 'NEW',
-    data: {
-      content: anecdote.content,
-      id: anecdote.id,
-      votes: anecdote.votes
-    }
-  }
-}
-
 export const initializeAnecdotes = () => {
   return async dispatch => {
     const anecdotes = await anecdoteService.getAll()
@@ -28,10 +17,14 @@ export const initializeAnecdotes = () => {
   }
 }
 
-export const createAnecdote = (data) => {
-  return {
-    type: 'NEW',
-    data
+export const newAnecdoteAction = (content) => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    console.log(newAnecdote)
+    dispatch({
+      type: 'NEW',
+      data: newAnecdote
+    })
   }
 }
 

@@ -1,7 +1,9 @@
 export const newNotificationAction = (notification) => {
-    return {
-        type: 'NEWNOTIFICATION',
-        notification
+    return async dispatch => {
+        dispatch({
+            type: 'NEWNOTIFICATION',
+            notification
+        })
     }
 }
 
